@@ -4,376 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Segurança Digital e Direitos na Internet - Guia para a Terceira Idade</title>
-  <style>
-    /* VARIÁVEIS DE CORES E ESTILOS */
-    :root {
-      --cor-fundo: #f4f6f9;
-      --cor-cartao: #ffffff;
-      --cor-texto: #1a1a1a;
-      --cor-primaria: #0056b3;
-      --cor-primaria-hover: #003d80;
-      --cor-segura: #2e7d32;
-      --cor-segura-fundo: #e8f5e9;
-      --cor-alerta: #c62828;
-      --cor-alerta-fundo: #ffebee;
-      --cor-borda: #cccccc;
-      --contorno-foco: 4px solid #ffbf00;
-      --cor-fundo-destaque: #e3f2fd;
-      --tamanho-fonte-base: 16px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      font-size: var(--tamanho-fonte-base);
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background-color: var(--cor-fundo);
-      color: var(--cor-texto);
-      line-height: 1.6;
-      padding-bottom: 40px;
-    }
-
-    /* OCULTAR ELEMENTOS DE CONTROLE */
-    .alternador-estado {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-      width: 0;
-      height: 0;
-    }
-
-    /* BARRA FIXA DE ACESSIBILIDADE */
-    .barra-acessibilidade {
-      background-color: #111111;
-      color: #ffffff;
-      padding: 12px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    }
-
-    .barra-acessibilidade span {
-      font-size: 1.1rem;
-      font-weight: bold;
-    }
-
-    .botao-acessibilidade {
-      background-color: #ffffff;
-      color: #000000;
-      border: 2px solid #ffffff;
-      padding: 10px 18px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      user-select: none;
-    }
-
-    .botao-acessibilidade:hover, .botao-acessibilidade:focus {
-      outline: var(--contorno-foco);
-      background-color: #e0e0e0;
-    }
-
-    /* CONTAINER PRINCIPAL */
-    main {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 15px;
-    }
-
-    /* BARRA DE MENU SUPERIOR (SEÇÕES) */
-    .menu-navegacao {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      margin: 20px 0;
-    }
-
-    .botao-navegacao {
-      background-color: var(--cor-cartao);
-      color: var(--cor-texto);
-      border: 3px solid var(--cor-borda);
-      padding: 14px 20px;
-      font-size: 1.25rem;
-      font-weight: bold;
-      border-radius: 10px;
-      cursor: pointer;
-      text-align: center;
-      flex: 1 1 180px;
-      transition: all 0.2s ease;
-      display: block;
-      user-select: none;
-    }
-
-    .botao-navegacao:hover {
-      border-color: var(--cor-primaria);
-      background-color: #e9f2ff;
-    }
-
-    /* BLOCOS DE CONTEÚDO */
-    .bloco-secao {
-      display: none;
-      background-color: var(--cor-cartao);
-      padding: 30px;
-      border-radius: 12px;
-      border: 2px solid var(--cor-borda);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      margin-bottom: 30px;
-    }
-
-    /* LÓGICA DE SELEÇÃO DAS ABAS (CSS PURO) */
-    #sec-inicio:checked ~ main #bloco-inicio,
-    #sec-conselhos:checked ~ main #bloco-conselhos,
-    #sec-direitos:checked ~ main #bloco-direitos,
-    #sec-fraudes:checked ~ main #bloco-fraudes,
-    #sec-ajuda:checked ~ main #bloco-ajuda {
-      display: block;
-    }
-
-    #sec-inicio:checked ~ main .menu-navegacao label[for="sec-inicio"],
-    #sec-conselhos:checked ~ main .menu-navegacao label[for="sec-conselhos"],
-    #sec-direitos:checked ~ main .menu-navegacao label[for="sec-direitos"],
-    #sec-fraudes:checked ~ main .menu-navegacao label[for="sec-fraudes"],
-    #sec-ajuda:checked ~ main .menu-navegacao label[for="sec-ajuda"] {
-      background-color: var(--cor-primaria);
-      color: #ffffff;
-      border-color: var(--cor-primaria);
-    }
-
-    /* SEÇÃO DE INÍCIO - BANNER DE DESTAQUE */
-    .banner-destaque {
-      background-color: var(--cor-fundo-destaque);
-      border: 3px solid var(--cor-primaria);
-      border-radius: 12px;
-      padding: 35px 25px;
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .titulo-destaque {
-      font-size: 2.3rem;
-      color: var(--cor-primaria);
-      margin-bottom: 15px;
-    }
-
-    .subtitulo-destaque {
-      font-size: 1.35rem;
-      margin-bottom: 25px;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* BOTÃO DE AJUDA COM GRANDE DESTAQUE */
-    .botao-ajuda-destaque {
-      display: inline-block;
-      background-color: var(--cor-alerta);
-      color: #ffffff;
-      font-size: 1.6rem;
-      font-weight: bold;
-      padding: 18px 30px;
-      border-radius: 10px;
-      border: 4px solid #900000;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 6px 15px rgba(198, 40, 40, 0.4);
-      transition: transform 0.2s;
-      user-select: none;
-    }
-
-    .botao-ajuda-destaque:hover, .botao-ajuda-destaque:focus {
-      outline: var(--contorno-foco);
-      transform: scale(1.03);
-    }
-
-    /* ESTILOS DE TÍTULOS E TEXTOS */
-    h2 {
-      font-size: 2rem;
-      color: var(--cor-primaria);
-      border-bottom: 3px solid var(--cor-borda);
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-    }
-
-    h3 {
-      font-size: 1.5rem;
-      margin: 20px 0 10px 0;
-      color: #333333;
-    }
-
-    p, li {
-      font-size: 1.25rem;
-      margin-bottom: 15px;
-    }
-
-    ul, ol {
-      margin-left: 25px;
-      margin-bottom: 20px;
-    }
-
-    /* CARDS E CAIXAS INFORMATIVAS */
-    .grade-cartoes {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .cartao-informacao {
-      background-color: var(--cor-cartao);
-      border: 2px solid var(--cor-borda);
-      border-left: 8px solid var(--cor-primaria);
-      padding: 20px;
-      border-radius: 8px;
-    }
-
-    .cartao-informacao.seguro {
-      border-left-color: var(--cor-segura);
-      background-color: var(--cor-segura-fundo);
-    }
-
-    .cartao-informacao.alerta {
-      border-left-color: var(--cor-alerta);
-      background-color: var(--cor-alerta-fundo);
-    }
-
-    .titulo-cartao {
-      font-size: 1.4rem;
-      font-weight: bold;
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    /* SITUAÇÕES PRÁTICAS DE FRAUDE */
-    .caso-fraude {
-      border: 2px solid var(--cor-borda);
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-      background-color: #fafafa;
-    }
-
-    .titulo-caso-fraude {
-      font-size: 1.4rem;
-      font-weight: bold;
-      color: var(--cor-alerta);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .sinal-fraude {
-      background-color: var(--cor-alerta-fundo);
-      border: 1px solid var(--cor-alerta);
-      padding: 12px;
-      border-radius: 6px;
-      margin-top: 10px;
-    }
-
-    /* TELEFONES DE EMERGÊNCIA */
-    .cartao-emergencia {
-      border: 3px solid var(--cor-alerta);
-      padding: 20px;
-      border-radius: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-bottom: 15px;
-    }
-
-    .numero-emergencia {
-      font-size: 2rem;
-      font-weight: bold;
-      color: var(--cor-alerta);
-    }
-
-    .botao-ligar {
-      background-color: var(--cor-segura);
-      color: #ffffff;
-      padding: 12px 24px;
-      font-size: 1.3rem;
-      font-weight: bold;
-      border-radius: 8px;
-      text-decoration: none;
-    }
-
-    /* AUMENTO DA FONTE GLOBAIS VIA CHECKBOX */
-    #alternar-fonte:checked ~ * {
-      --tamanho-fonte-base: 19px;
-    }
-
-    /* MODO ALTO CONTRASTE VIA CHECKBOX */
-    #alternar-contraste:checked ~ * {
-      --cor-fundo: #000000;
-      --cor-cartao: #121212;
-      --cor-texto: #ffffff;
-      --cor-primaria: #ffff00;
-      --cor-segura: #00ff66;
-      --cor-segura-fundo: #002b11;
-      --cor-alerta: #ff6666;
-      --cor-alerta-fundo: #330000;
-      --cor-borda: #ffffff;
-      --cor-fundo-destaque: #1a1a00;
-    }
-
-    #alternar-contraste:checked ~ main h3,
-    #alternar-contraste:checked ~ main .caso-fraude {
-      color: #ffffff;
-      background-color: #1a1a1a;
-    }
-
-    #alternar-contraste:checked ~ main .botao-ajuda-destaque,
-    #alternar-contraste:checked ~ main .botao-ligar,
-    #alternar-contraste:checked ~ main .botao-navegacao {
-      color: #000000;
-    }
-
-    /* RODAPÉ */
-    footer {
-      text-align: center;
-      padding: 25px;
-      margin-top: 30px;
-      font-size: 1.1rem;
-      border-top: 2px solid var(--cor-borda);
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ELEMENTOS DE ESTADO (INPUTS TIPO RADIO E CHECKBOX) NO INÍCIO DO BODY -->
+  <!-- ELEMENTOS DE ESTADO (INPUTS TIPO RADIO E CHECKBOX) -->
   <input type="checkbox" id="alternar-contraste" class="alternador-estado">
   <input type="checkbox" id="alternar-fonte" class="alternador-estado">
+  <input type="checkbox" id="sec-ajuda-trigger" class="alternador-estado">
 
   <input type="radio" id="sec-inicio" name="secoes" class="alternador-estado" checked>
   <input type="radio" id="sec-conselhos" name="secoes" class="alternador-estado">
   <input type="radio" id="sec-direitos" name="secoes" class="alternador-estado">
   <input type="radio" id="sec-fraudes" name="secoes" class="alternador-estado">
-  <input type="radio" id="sec-ajuda" name="secoes" class="alternador-estado">
 
   <!-- BARRA FIXA DE ACESSIBILIDADE NO TOPO -->
   <header class="barra-acessibilidade" aria-label="Ferramentas de Acessibilidade">
     <span>Acessibilidade:</span>
-    <div style="display: flex; gap: 10px;">
+    <div class="grupo-acessibilidade">
       <label for="alternar-fonte" class="botao-acessibilidade" title="Aumentar o tamanho das letras">
         🔍 Letras Maiores
       </label>
@@ -392,7 +40,7 @@
       <label for="sec-conselhos" class="botao-navegacao">💡 Conselhos</label>
       <label for="sec-direitos" class="botao-navegacao">⚖️ Seus Direitos</label>
       <label for="sec-fraudes" class="botao-navegacao">⚠️ Evitar Fraudes</label>
-      <label for="sec-ajuda" class="botao-navegacao">📞 Pedir Ajuda</label>
+      <label for="sec-ajuda-trigger" class="botao-navegacao botao-ajuda-menu">📞 Pedir Ajuda</label>
     </nav>
 
     <!-- SEÇÃO 1: INÍCIO -->
@@ -404,7 +52,7 @@
         </p>
         
         <!-- BOTÃO DE AJUDA DE GRANDE DESTAQUE -->
-        <label for="sec-ajuda" class="botao-ajuda-destaque">
+        <label for="sec-ajuda-trigger" class="botao-ajuda-destaque">
           🚨 PRECISO DE AJUDA AGORA!
         </label>
       </div>
@@ -459,33 +107,32 @@
       <h2>Seus Direitos no Ambiente Digital</h2>
       <p>A internet não é uma terra sem leis. Existem regras no Brasil que protegem os cidadãos, especialmente a população idosa:</p>
 
-      <div class="cartao-informacao" style="margin-bottom: 15px;">
+      <div class="cartao-informacao cartao-espacado">
         <span class="titulo-cartao">🛡️ Lei Geral de Proteção de Dados (LGPD)</span>
         <p>Você tem o direito de saber <strong>quem tem seus dados pessoais</strong> (CPF, telefone, endereço) e exigir que as empresas apaguem suas informações se você não quiser mais utilizá-las.</p>
       </div>
 
-      <div class="cartao-informacao" style="margin-bottom: 15px;">
+      <div class="cartao-informacao cartao-espacado">
         <span class="titulo-cartao">📜 Marco Civil da Internet</span>
         <p>Garante que sua navegação é privada e que o acesso à internet deve seguir princípios de proteção, cidadania e respeito à dignidade humana.</p>
       </div>
 
-      <div class="cartao-informacao" style="margin-bottom: 15px;">
+      <div class="cartao-informacao cartao-espacado">
         <span class="titulo-cartao">🛍️ Código de Defesa do Consumidor (Compras Online)</span>
         <p>Comprou algo pela internet e se arrependeu ou não era o que esperava? Você tem até <strong>7 dias após receber o produto</strong> para cancelar a compra e receber todo o seu dinheiro de volta.</p>
       </div>
 
-      <div class="cartao-informacao" style="margin-bottom: 15px;">
+      <div class="cartao-informacao cartao-espacado">
         <span class="titulo-cartao">👵 Estatuto da Pessoa Idosa</span>
         <p>Protege pessoas com 60 anos ou mais contra discriminação, abusos financeiros e garante atendimento prioritário também nos serviços prestados por canais digitais e bancos.</p>
       </div>
     </section>
 
-    <!-- SEÇÃO 4: COMO IDENTIFICAR FRAUDES NO DIA A DIA -->
+    <!-- SEÇÃO 4: COMO IDENTIFICAR FRAUDES -->
     <section id="bloco-fraudes" class="bloco-secao">
       <h2>Como Identificar Golpes do Dia a Dia</h2>
       <p>Os criminosos costumam usar situações cotidianas que passam despercebidas. Veja como reconhecer cada uma delas:</p>
 
-      <!-- SITUAÇÃO 1 -->
       <div class="caso-fraude">
         <div class="titulo-caso-fraude">
           <span>📱 Situação 1: "Mensagem de Compra Aprovada no Cartão"</span>
@@ -496,79 +143,39 @@
           <br><strong>O que fazer:</strong> Ignore a mensagem e confira o extrato no aplicativo do seu banco ou ligue no número que fica no verso do seu cartão.
         </div>
       </div>
-
-      <!-- SITUAÇÃO 2 -->
-      <div class="caso-fraude">
-        <div class="titulo-caso-fraude">
-          <span>🎁 Situação 2: "Sorteio ou Presente Inesperado"</span>
-        </div>
-        <p><strong>O que acontece:</strong> Uma mensagem diz que você ganhou uma cesta de chocolates, uma TV ou uma promoção da loja onde você costuma comprar, mas pede uma taxa de entrega via Pix.</p>
-        <div class="sinal-fraude">
-          <strong>⚠️ Sinal de Fraude:</strong> Prêmios verdadeiros nunca cobram taxa para entrega.
-          <br><strong>O que fazer:</strong> Não faça transferências Pix para receber prêmios ou brindes.
-        </div>
-      </div>
-
-      <!-- SITUAÇÃO 3 -->
-      <div class="caso-fraude">
-        <div class="titulo-caso-fraude">
-          <span>🏦 Situação 3: "Atualização Cadastral Urgente"</span>
-        </div>
-        <p><strong>O que acontece:</strong> Alguém liga dizendo ser do seu banco ou da previdência (INSS) e pede para você "confirmar" sua senha ou tirar uma foto do seu rosto no celular.</p>
-        <div class="sinal-fraude">
-          <strong>⚠️ Sinal de Fraude:</strong> Bancos e o INSS nunca ligam pedindo senha ou prova de vida por links estranhos.
-          <br><strong>O que fazer:</strong> Desligue o telefone e vá até sua agência bancária ou posto do INSS acompanhado de alguém de confiança.
-        </div>
-      </div>
     </section>
 
-    <!-- SEÇÃO 5: PEDIR AJUDA / EMERGÊNCIA -->
-    <section id="bloco-ajuda" class="bloco-secao">
-      <h2>O que fazer em caso de dúvida ou emergência</h2>
-      <p>Se você suspeita que caiu em um golpe ou transferiu dinheiro por engano, siga estes passos imediatamente:</p>
+  </main>
 
-      <ol style="margin-bottom: 25px;">
-        <li><strong>Ligue para o seu banco:</strong> Peça para bloquear temporariamente suas senhas e o aplicativo.</li>
-        <li><strong>Avise uma pessoa de confiança:</strong> Fale com um filho, neto, vizinho ou amigo próximo imediatamente.</li>
-        <li><strong>Registre um B.O. (Boletim de Ocorrência):</strong> Pode ser feito na Delegacia de Polícia mais próxima.</li>
-      </ol>
-
-      <h3>Telefones Úteis para Ligações Gratuitas:</h3>
-
+  <!-- MODAL DE AJUDA -->
+  <div class="modal-overlay">
+    <div class="Caixa-Direitos">
+      <div class="modal-cabecalho">
+        <h2>📞 Central de Ajuda e Contatos</h2>
+        <label for="sec-ajuda-trigger" class="botao-fechar-modal">Fechar ✖</label>
+      </div>
+      <p>Se você suspeita de um golpe ou precisa de ajuda urgente, entre em contato com os canais oficiais abaixo:</p>
+      
       <div class="cartao-emergencia">
         <div>
-          <strong>Polícia Militar (Emergências)</strong>
-          <p style="margin: 0; font-size: 1.1rem;">Ligue se estiver correndo risco imediato.</p>
+          <strong>Polícia Militar (Emergência)</strong>
+          <div class="numero-emergencia">190</div>
         </div>
-        <span class="numero-emergencia">190</span>
-        <a href="tel:190" class="botao-ligar">Ligar 190</a>
+        <a href="tel:190" class="botao-ligar">Ligar Agora</a>
       </div>
 
       <div class="cartao-emergencia">
         <div>
           <strong>Disque Direitos Humanos</strong>
-          <p style="margin: 0; font-size: 1.1rem;">Para denúncias de violação de direitos da pessoa idosa.</p>
+          <div class="numero-emergencia">100</div>
         </div>
-        <span class="numero-emergencia">100</span>
-        <a href="tel:100" class="botao-ligar">Ligar 100</a>
+        <a href="tel:100" class="botao-ligar">Ligar Agora</a>
       </div>
+    </div>
+  </div>
 
-      <div class="cartao-emergencia">
-        <div>
-          <strong>Disque Denúncia</strong>
-          <p style="margin: 0; font-size: 1.1rem;">Para denunciar golpes e crimes de forma anônima.</p>
-        </div>
-        <span class="numero-emergencia">181</span>
-        <a href="tel:181" class="botao-ligar">Ligar 181</a>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- RODAPÉ -->
   <footer>
-    <p><strong>Portal de Segurança e Direitos Digitais para a Pessoa Idosa</strong></p>
-    <p>Desenvolvido para garantir autonomia, informação clara e segurança na internet.</p>
+    <p>Portal Informativo de Segurança Digital — Focado na Acessibilidade e Proteção da Terceira Idade.</p>
   </footer>
 
 </body>
