@@ -11,7 +11,6 @@
   <!-- ELEMENTOS DE ESTADO (INPUTS TIPO RADIO E CHECKBOX) -->
   <input type="checkbox" id="alternar-contraste" class="alternador-estado">
   <input type="checkbox" id="alternar-fonte" class="alternador-estado">
-  <input type="checkbox" id="sec-ajuda-trigger" class="alternador-estado">
 
   <input type="radio" id="sec-inicio" name="secoes" class="alternador-estado" checked>
   <input type="radio" id="sec-conselhos" name="secoes" class="alternador-estado">
@@ -40,7 +39,7 @@
       <label for="sec-conselhos" class="botao-navegacao">💡 Conselhos</label>
       <label for="sec-direitos" class="botao-navegacao">⚖️ Seus Direitos</label>
       <label for="sec-fraudes" class="botao-navegacao">⚠️ Evitar Fraudes</label>
-      <label for="sec-ajuda-trigger" class="botao-navegacao botao-ajuda-menu">📞 Pedir Ajuda</label>
+      <button type="button" class="botao-navegacao botao-ajuda-menu">📞 Pedir Ajuda</button>
     </nav>
 
     <!-- SEÇÃO 1: INÍCIO -->
@@ -52,9 +51,9 @@
         </p>
         
         <!-- BOTÃO DE AJUDA DE GRANDE DESTAQUE -->
-        <label for="sec-ajuda-trigger" class="botao-ajuda-destaque">
+        <button type="button" class="botao-ajuda-destaque">
           🚨 PRECISO DE AJUDA AGORA!
-        </label>
+        </button>
       </div>
 
       <h2>O que você encontrará neste portal?</h2>
@@ -152,7 +151,7 @@
     <div class="Caixa-Direitos">
       <div class="modal-cabecalho">
         <h2>📞 Central de Ajuda e Contatos</h2>
-        <label for="sec-ajuda-trigger" class="botao-fechar-modal">Fechar ✖</label>
+        <button type="button" class="botao-fechar-modal">Fechar ✖</button>
       </div>
       <p>Se você suspeita de um golpe ou precisa de ajuda urgente, entre em contato com os canais oficiais abaixo:</p>
       
@@ -178,5 +177,7 @@
     <p>Portal Informativo de Segurança Digital — Focado na Acessibilidade e Proteção da Terceira Idade.</p>
   </footer>
 
+  <!-- CONEXÃO COM O ARQUIVO JAVASCRIPT EXTERNO -->
+  <script src="script.js"></script>
 </body>
 </html>
