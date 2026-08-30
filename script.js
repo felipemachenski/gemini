@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    // Se já estiver lendo, controla o PAUSAR e RETOMAR
     if (lendo) {
       if (window.speechSynthesis.paused) {
         window.speechSynthesis.resume();
@@ -87,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    // Cancela leituras anteriores antes de iniciar uma nova
     window.speechSynthesis.cancel();
 
     const secoes = document.querySelectorAll('.bloco-secao');
