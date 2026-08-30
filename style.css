@@ -1,10 +1,8 @@
-/* VARIÁVEIS DE CORES E ESTILOS GLOBAIS */
 :root {
   --cor-fundo: #f4f6f9;
   --cor-cartao: #ffffff;
   --cor-texto: #1a1a1a;
   --cor-primaria: #0056b3;
-  --cor-primaria-hover: #003d80;
   --cor-segura: #2e7d32;
   --cor-segura-fundo: #e8f5e9;
   --cor-alerta: #c62828;
@@ -33,16 +31,10 @@ body {
   padding-bottom: 40px;
 }
 
-/* OCULTAR ELEMENTOS DE CONTROLE */
 .alternador-estado {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-  width: 0;
-  height: 0;
+  display: none;
 }
 
-/* BARRA FIXA DE ACESSIBILIDADE */
 .barra-acessibilidade {
   background-color: #111111;
   color: #ffffff;
@@ -81,9 +73,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  user-select: none;
   font-family: inherit;
-  transition: background-color 0.2s, outline 0.2s;
+  transition: background-color 0.2s;
 }
 
 .botao-acessibilidade:hover, 
@@ -92,14 +83,12 @@ body {
   background-color: #e0e0e0;
 }
 
-/* CONTAINER PRINCIPAL */
 main {
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 15px;
 }
 
-/* BARRA DE MENU SUPERIOR */
 .menu-navegacao {
   display: flex;
   flex-wrap: wrap;
@@ -121,7 +110,6 @@ main {
   flex: 1 1 180px;
   transition: all 0.2s ease;
   display: block;
-  user-select: none;
   font-family: inherit;
 }
 
@@ -135,7 +123,6 @@ main {
   color: var(--cor-alerta);
 }
 
-/* BLOCOS DE CONTEÚDO DAS ABAS */
 .bloco-secao {
   display: none;
   background-color: var(--cor-cartao);
@@ -146,7 +133,6 @@ main {
   margin-bottom: 30px;
 }
 
-/* LÓGICA DE SELEÇÃO DAS ABAS */
 #sec-inicio:checked ~ main #bloco-inicio,
 #sec-conselhos:checked ~ main #bloco-conselhos,
 #sec-direitos:checked ~ main #bloco-direitos,
@@ -163,7 +149,6 @@ main {
   border-color: var(--cor-primaria);
 }
 
-/* BANNER DE DESTAQUE NA PÁGINA INICIAL */
 .banner-destaque {
   background-color: var(--cor-fundo-destaque);
   border: 3px solid var(--cor-primaria);
@@ -182,12 +167,8 @@ main {
 .subtitulo-destaque {
   font-size: 1.35rem;
   margin-bottom: 25px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-/* BOTÃO DE AJUDA COM GRANDE DESTAQUE */
 .botao-ajuda-destaque {
   display: inline-block;
   background-color: var(--cor-alerta);
@@ -198,21 +179,16 @@ main {
   border-radius: 10px;
   border: 4px solid #900000;
   cursor: pointer;
-  text-decoration: none;
-  box-shadow: 0 6px 15px rgba(198, 40, 40, 0.4);
-  transition: transform 0.2s, background-color 0.2s;
-  user-select: none;
   font-family: inherit;
+  box-shadow: 0 6px 15px rgba(198, 40, 40, 0.4);
 }
 
 .botao-ajuda-destaque:hover, 
 .botao-ajuda-destaque:focus {
   outline: var(--contorno-foco);
-  transform: scale(1.03);
   background-color: #b71c1c;
 }
 
-/* ESTILOS DE TÍTULOS E TEXTOS */
 h2 {
   font-size: 2rem;
   color: var(--cor-primaria);
@@ -221,23 +197,11 @@ h2 {
   margin-bottom: 20px;
 }
 
-h3 {
-  font-size: 1.5rem;
-  margin: 20px 0 10px 0;
-  color: #333333;
-}
-
 p, li {
   font-size: 1.25rem;
   margin-bottom: 15px;
 }
 
-ul, ol {
-  margin-left: 25px;
-  margin-bottom: 20px;
-}
-
-/* CARDS E CAIXAS INFORMATIVAS */
 .grade-cartoes {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -258,11 +222,6 @@ ul, ol {
   background-color: var(--cor-segura-fundo);
 }
 
-.cartao-informacao.alerta {
-  border-left-color: var(--cor-alerta);
-  background-color: var(--cor-alerta-fundo);
-}
-
 .cartao-espacado {
   margin-bottom: 15px;
 }
@@ -274,7 +233,6 @@ ul, ol {
   display: block;
 }
 
-/* SITUAÇÕES PRÁTICAS DE FRAUDE */
 .caso-fraude {
   border: 2px solid var(--cor-borda);
   border-radius: 10px;
@@ -287,9 +245,6 @@ ul, ol {
   font-size: 1.4rem;
   font-weight: bold;
   color: var(--cor-alerta);
-  display: flex;
-  align-items: center;
-  gap: 10px;
   margin-bottom: 10px;
 }
 
@@ -301,7 +256,6 @@ ul, ol {
   margin-top: 10px;
 }
 
-/* TELEFONES DE EMERGÊNCIA */
 .cartao-emergencia {
   border: 3px solid var(--cor-alerta);
   padding: 20px;
@@ -332,13 +286,6 @@ ul, ol {
   display: inline-block;
 }
 
-.botao-ligar:hover, 
-.botao-ligar:focus {
-  outline: var(--contorno-foco);
-  filter: brightness(0.9);
-}
-
-/* ESTILIZAÇÃO DO MODAL DE AJUDA */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -348,8 +295,6 @@ ul, ol {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.75);
   z-index: 2000;
-  backdrop-filter: blur(3px);
-  animation: fadeIn 0.25s ease-out;
 }
 
 .modal-overlay.ativo {
@@ -369,9 +314,7 @@ ul, ol {
   border: 4px solid var(--cor-alerta);
   border-radius: 14px;
   padding: 25px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   z-index: 2001;
-  margin: 0 !important;
 }
 
 .modal-cabecalho {
@@ -400,23 +343,9 @@ ul, ol {
   font-weight: bold;
   border-radius: 8px;
   cursor: pointer;
-  user-select: none;
-  display: inline-block;
   font-family: inherit;
 }
 
-.botao-fechar-modal:hover, 
-.botao-fechar-modal:focus {
-  background-color: #000000;
-  outline: var(--contorno-foco);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* RODAPÉ */
 footer {
   text-align: center;
   padding: 25px;
@@ -425,45 +354,16 @@ footer {
   border-top: 2px solid var(--cor-borda);
 }
 
-/* AJUSTES DE RESPONSIVIDADE (DISPOSITIVOS MÓVEIS / CELULARES) */
 @media (max-width: 600px) {
   .barra-acessibilidade {
     flex-direction: column;
     align-items: flex-start;
-    padding: 10px 12px;
   }
-
   .grupo-acessibilidade {
     width: 100%;
     justify-content: space-between;
   }
-
-  .botao-acessibilidade {
-    padding: 6px 10px;
-    font-size: 0.9rem;
-  }
-
   .botao-navegacao {
     flex: 1 1 100%;
-    padding: 10px 14px;
-    font-size: 1.1rem;
-  }
-
-  .titulo-destaque {
-    font-size: 1.8rem;
-  }
-
-  .subtitulo-destaque {
-    font-size: 1.1rem;
-  }
-
-  .botao-ajuda-destaque {
-    width: 100%;
-    font-size: 1.3rem;
-    padding: 14px 20px;
-  }
-
-  .bloco-secao {
-    padding: 18px;
   }
 }
