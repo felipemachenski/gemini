@@ -1,115 +1,111 @@
-// MODAL DE AJUDA
-const botaoAjudaDestaque = document.querySelector('.botao-ajuda-destaque');
-const botaoAjudaMenu = document.querySelector('.botao-ajuda-menu');
-const botaoFecharModal = document.querySelector('.botao-fechar-modal');
-const modalOverlay = document.querySelector('.modal-overlay');
+document.addEventListener('DOMContentLoaded', function() {
 
-function abreModal() {
-  if (modalOverlay) {
-    modalOverlay.classList.add('ativo');
+  // ==========================================
+  // CÓDIGO DO MODAL DE AJUDA
+  // ==========================================
+  const btnAjudaDestaque = document.querySelector('.botao-ajuda-destaque');
+  const btnAjudaMenu = document.querySelector('.botao-ajuda-menu');
+  const btnFecharModal = document.querySelector('.botao-fechar-modal');
+  const modalOverlay = document.querySelector('.modal-overlay');
+
+  function abrirModal() {
+    if (modalOverlay) modalOverlay.classList.add('ativo');
   }
-}
 
-function fechaModal() {
-  if (modalOverlay) {
-    modalOverlay.classList.remove('ativo');
+  function fecharModal() {
+    if (modalOverlay) modalOverlay.classList.remove('ativo');
   }
-}
 
-if (botaoAjudaDestaque) {
-  botaoAjudaDestaque.addEventListener('click', abreModal);
-}
+  if (btnAjudaDestaque) btnAjudaDestaque.addEventListener('click', abrirModal);
+  if (btnAjudaMenu) btnAjudaMenu.addEventListener('click', abrirModal);
+  if (btnFecharModal) btnFecharModal.addEventListener('click', fecharModal);
 
-if (botaoAjudaMenu) {
-  botaoAjudaMenu.addEventListener('click', abreModal);
-}
+  if (modalOverlay) {
+    modalOverlay.addEventListener('click', function(e) {
+      if (e.target === modalOverlay) fecharModal();
+    });
+  }
 
-if (botaoFecharModal) {
-  botaoFecharModal.addEventListener('click', fechaModal);
-}
+  // ==========================================
+  // CÓDIGO DE CONTROLE DE FONTE (ACESSIBILIDADE)
+  // ==========================================
 
-if (modalOverlay) {
-  modalOverlay.addEventListener('click', function(event) {
-    if (event.target === modalOverlay) {
-      fechaModal();
-    }
-  });
-}
+  // Definir variáveis para o tamanho da fonte
+  let tamanhoFonteAtual = 1; // 1rem
+  const valorAdicionado = 0.1;
+  const valorSubtraido = 0.1;
 
-// FUNCIONALIDADES DE ACESSIBILIDADE
+  // Obter elementos HTML no JavaScript usando document.getElementById
+  const botaoAumentar = document.getElementById('aumentar-fonte');
+  const botaoDiminuir = document.getElementById('diminuir-fonte');
 
-// 1. Controle do Tamanho da Fonte
-const btnAumentar = document.getElementById('btn-aumentar');
-const btnDiminuir = document.getElementById('btn-diminuir');
-const btnResetar = document.getElementById('btn-resetar');
+  // Implementar as funções de ajuste de fonte
+  function aumentaFonte() {
+    tamanhoFonteAtual += valorAdicionado;
+    document.documentElement.style.fontSize = tamanhoFonteAtual + 'rem';
+  }
 
-let tamanhoFonteAtual = 16;
-const tamanhoMinimo = 12;
-const tamanhoMaximo = 24;
+  function diminuiFonte() {
+    tamanhoFonteAtual -= valorSubtraido;
+    document.documentElement.style.fontSize = tamanhoFonteAtual + 'rem';
+  }
 
-if (btnAumentar) {
-  btnAumentar.addEventListener('click', function() {
-    if (tamanhoFonteAtual < tamanhoMaximo) {
-      tamanhoFonteAtual += 2;
-      document.documentElement.style.setProperty('--tamanho-fonte-base', `${tamanhoFonteAtual}px`);
-    }
-  });
-}
+  // Adicionar ouvintes de evento (event listeners)
+  if (botaoAumentar) {
+    botaoAumentar.addEventListener('click', aumentaFonte);
+  }
 
-if (btnDiminuir) {
-  btnDiminuir.addEventListener('click', function() {
-    if (tamanhoFonteAtual > tamanhoMinimo) {
-      tamanhoFonteAtual -= 2;
-      document.documentElement.style.setProperty('--tamanho-fonte-base', `${tamanhoFonteAtual}px`);
-    }
-  });
-}
+  if (botaoDiminuir) {
+    botaoDiminuir.addEventListener('click', diminuiFonte);
+  }
 
-if (btnResetar) {
-  btnResetar.addEventListener('click', function() {
-    tamanhoFonteAtual = 16;
-    document.documentElement.style.setProperty('--tamanho-fonte-base', '16px');
-  });
-}
+  // ==========================================
+  // CÓDIGO DE LEITURA EM VOZ ALTA
+  // ==========================================
+  const btnLerVoz = document.getElementById('btn-ler-voz');
 
-// 2. Leitura em Voz Alta (Web Speech API)
-const btnLerVoz = document.getElementById('btn-ler-voz');
-
-if (btnLerVoz) {
-  btnLerVoz.addEventListener('click', function() {
-    // Se estiver lendo, cancela a leitura ao clicar novamente
-    if (window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel();
-      btnLerVoz.textContent = '🔊 Ler em Voz Alta';
-      return;
-    }
-
-    // Identifica o bloco visível na página para realizar a leitura
-    const secaoAtiva = document.querySelector('.bloco-secao[style*="display: block"]') 
-                       || document.querySelector('#bloco-inicio');
-
-    const textoParaLer = secaoAtiva ? secaoAtiva.innerText : document.querySelector('main').innerText;
-
-    if ('speechSynthesis' in window) {
-      const uttermance = new SpeechSynthesisUtterance(textoParaLer);
-      uttermance.lang = 'pt-BR';
-      uttermance.rate = 1.0;
-
-      uttermance.onstart = function() {
-        btnLerVoz.textContent = '⏹️ Parar Leitura';
-      };
-
-      uttermance.onend = function() {
+  if (btnLerVoz) {
+    btnLerVoz.addEventListener('click', function() {
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
         btnLerVoz.textContent = '🔊 Ler em Voz Alta';
-      };
+        return;
+      }
 
-      uttermance.onerror = function() {
-        btnLerVoz.textContent = '🔊 Ler em Voz Alta';
-      };
+      const secoes = document.querySelectorAll('.bloco-secao');
+      let textoParaLer = '';
 
-      window.speechSynthesis.speak(uttermance);
-    } else {
-      alert('Seu navegador não suporta a função de leitura em voz alta.');
-    }
-  });
-}
+      secoes.forEach(function(secao) {
+        if (window.getComputedStyle(secao).display !== 'none') {
+          textoParaLer = secao.innerText;
+        }
+      });
+
+      if (!textoParaLer) {
+        textoParaLer = document.querySelector('main').innerText;
+      }
+
+      if ('speechSynthesis' in window) {
+        const mensagem = new SpeechSynthesisUtterance(textoParaLer);
+        mensagem.lang = 'pt-BR';
+
+        mensagem.onstart = function() {
+          btnLerVoz.textContent = '⏹️ Parar Leitura';
+        };
+
+        mensagem.onend = function() {
+          btnLerVoz.textContent = '🔊 Ler em Voz Alta';
+        };
+
+        mensagem.onerror = function() {
+          btnLerVoz.textContent = '🔊 Ler em Voz Alta';
+        };
+
+        window.speechSynthesis.speak(mensagem);
+      } else {
+        alert('Seu navegador não suporta a função de leitura em voz alta.');
+      }
+    });
+  }
+
+});
