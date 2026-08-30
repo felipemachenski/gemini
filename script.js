@@ -60,9 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // CÓDIGO DE LEITURA EM VOZ ALTA
   // ==========================================
   const btnLerVoz = document.getElementById('btn-ler-voz');
-  let lendo = false; // Variável de controle do estado da leitura
+  let lendo = false;
 
-  // Função do desafio: resetar as variáveis e o texto do botão quando a leitura terminar
+  // Função para finalizar leitura que simplesmente atualiza a variável lendo para false
   function finalizarLeitura() {
     lendo = false;
     if (btnLerVoz) {
@@ -70,46 +70,56 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  if (btnLerVoz) {
-    btnLerVoz.addEventListener('click', function() {
-      // Se já estiver lendo, cancela a fala e finaliza a leitura
-      if (lendo || window.speechSynthesis.speaking) {
-        window.speechSynthesis.cancel();
-        finalizarLeitura();
-        return;
-      }
+  function lerEmVozAlta() {
+    if (!('speechSynthesis' in window)) {
+      alert('Seu navegador não suporta a função de leitura em voz alta.');
+      return;
+    }
 
-      const secoes = document.querySelectorAll('.bloco-secao');
-      let textoParaLer = '';
-
-      secoes.forEach(function(secao) {
-        if (window.getComputedStyle(secao).display !== 'none') {
-          textoParaLer = secao.innerText;
-        }
-      });
-
-      if (!textoParaLer) {
-        textoParaLer = document.querySelector('main').innerText;
-      }
-
-      if ('speechSynthesis' in window) {
-        const mensagem = new SpeechSynthesisUtterance(textoParaLer);
-        mensagem.lang = 'pt-BR';
-
-        // Definir lendo como true quando a leitura começar
-        lendo = true;
-        btnLerVoz.textContent = '⏹️ Parar Leitura';
-
-        // Adicionar o evento onend para chamar a função finalizarLeitura
-        mensagem.onend = finalizarLeitura;
-        mensagem.onerror = finalizarLeitura;
-
-        // Chamar speechSynthesis.speak() passando a instância da fala
-        window.speechSynthesis.speak(mensagem);
+    // Se a leitura já estiver ativa (lendo == true), controla pausa e retomada
+    if (lendo) {
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+        btnLerVoz.textContent = '⏸️ Pausar Leitura';
       } else {
-        alert('Seu navegador não suporta a função de leitura em voz alta.');
+        window.speechSynthesis.pause();
+        btnLerVoz.textContent = '▶️ Retomar Leitura';
+      }
+      return;
+    }
+
+    // Cancela leituras anteriores antes de iniciar uma nova
+    window.speechSynthesis.cancel();
+
+    const secoes = document.querySelectorAll('.bloco-secao');
+    let textoParaLer = '';
+
+    secoes.forEach(function(secao) {
+      if (window.getComputedStyle(secao).display !== 'none') {
+        textoParaLer = secao.innerText;
       }
     });
+
+    if (!textoParaLer) {
+      textoParaLer = document.querySelector('main').innerText;
+    }
+
+    const mensagem = new SpeechSynthesisUtterance(textoParaLer);
+    mensagem.lang = 'pt-BR';
+
+    mensagem.onstart = function() {
+      lendo = true;
+      btnLerVoz.textContent = '⏸️ Pausar Leitura';
+    };
+
+    mensagem.onend = finalizarLeitura;
+    mensagem.onerror = finalizarLeitura;
+
+    window.speechSynthesis.speak(mensagem);
+  }
+
+  if (btnLerVoz) {
+    btnLerVoz.addEventListener('click', lerEmVozAlta);
   }
 
 });
