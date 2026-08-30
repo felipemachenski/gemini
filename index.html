@@ -8,10 +8,7 @@
 </head>
 <body>
 
-  <!-- ELEMENTOS DE ESTADO (INPUTS TIPO RADIO E CHECKBOX) -->
-  <input type="checkbox" id="alternar-contraste" class="alternador-estado">
-  <input type="checkbox" id="alternar-fonte" class="alternador-estado">
-
+  <!-- ELEMENTOS DE ESTADO PARA AS ABAS -->
   <input type="radio" id="sec-inicio" name="secoes" class="alternador-estado" checked>
   <input type="radio" id="sec-conselhos" name="secoes" class="alternador-estado">
   <input type="radio" id="sec-direitos" name="secoes" class="alternador-estado">
@@ -21,12 +18,18 @@
   <header class="barra-acessibilidade" aria-label="Ferramentas de Acessibilidade">
     <span>Acessibilidade:</span>
     <div class="grupo-acessibilidade">
-      <label for="alternar-fonte" class="botao-acessibilidade" title="Aumentar o tamanho das letras">
-        🔍 Letras Maiores
-      </label>
-      <label for="alternar-contraste" class="botao-acessibilidade" title="Alternar para Modo Alto Contraste">
-        👁️ Alto Contraste
-      </label>
+      <button type="button" id="btn-aumentar" class="botao-acessibilidade" title="Aumentar o tamanho das letras">
+        A+
+      </button>
+      <button type="button" id="btn-diminuir" class="botao-acessibilidade" title="Diminuir o tamanho das letras">
+        A-
+      </button>
+      <button type="button" id="btn-resetar" class="botao-acessibilidade" title="Tamanho normal">
+        A
+      </button>
+      <button type="button" id="btn-ler-voz" class="botao-acessibilidade" title="Ouvir o conteúdo da página">
+        🔊 Ler em Voz Alta
+      </button>
     </div>
   </header>
 
@@ -50,7 +53,6 @@
           Um guia prático, simples e fácil feito para ajudar você a navegar na internet com tranquilidade, proteger suas contas e conhecer os seus direitos digitais.
         </p>
         
-        <!-- BOTÃO DE AJUDA DE GRANDE DESTAQUE -->
         <button type="button" class="botao-ajuda-destaque">
           🚨 PRECISO DE AJUDA AGORA!
         </button>
@@ -177,7 +179,6 @@
     <p>Portal Informativo de Segurança Digital — Focado na Acessibilidade e Proteção da Terceira Idade.</p>
   </footer>
 
-  <!-- CONEXÃO COM O ARQUIVO JAVASCRIPT EXTERNO -->
   <script src="script.js"></script>
 </body>
 </html>
