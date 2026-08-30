@@ -29,31 +29,25 @@ document.addEventListener('DOMContentLoaded', function() {
   // ==========================================
   // CÓDIGO DE CONTROLE DE FONTE (ACESSIBILIDADE)
   // ==========================================
-
-  // Step 3: Definir variáveis para o tamanho da fonte
-  let tamanhoFonteAtual = 1; // 1rem como valor inicial
+  let tamanhoFonteAtual = 1;
   const valorAdicionado = 0.1;
   const valorSubtraido = 0.1;
 
-  // Step 5: Obter elementos HTML no JavaScript usando document.getElementById
   const botaoAumentar = document.getElementById('aumentar-fonte');
   const botaoDiminuir = document.getElementById('diminuir-fonte');
 
-  // Step 6: Implementar as funções aumentaFonte() e diminuiFonte()
   function aumentaFonte() {
     tamanhoFonteAtual += valorAdicionado;
     document.documentElement.style.fontSize = tamanhoFonteAtual + 'rem';
   }
 
   function diminuiFonte() {
-    // Evita que a fonte fique infinitamente pequena
     if (tamanhoFonteAtual > 0.6) {
       tamanhoFonteAtual -= valorSubtraido;
       document.documentElement.style.fontSize = tamanhoFonteAtual + 'rem';
     }
   }
 
-  // Step 7: Adicionar ouvintes de evento (event listeners)
   if (botaoAumentar) {
     botaoAumentar.addEventListener('click', aumentaFonte);
   }
@@ -66,12 +60,22 @@ document.addEventListener('DOMContentLoaded', function() {
   // CÓDIGO DE LEITURA EM VOZ ALTA
   // ==========================================
   const btnLerVoz = document.getElementById('btn-ler-voz');
+  let lendo = false; // Variável de controle do estado da leitura
+
+  // Função do desafio: resetar as variáveis e o texto do botão quando a leitura terminar
+  function finalizarLeitura() {
+    lendo = false;
+    if (btnLerVoz) {
+      btnLerVoz.textContent = '🔊 Ler em Voz Alta';
+    }
+  }
 
   if (btnLerVoz) {
     btnLerVoz.addEventListener('click', function() {
-      if (window.speechSynthesis.speaking) {
+      // Se já estiver lendo, cancela a fala e finaliza a leitura
+      if (lendo || window.speechSynthesis.speaking) {
         window.speechSynthesis.cancel();
-        btnLerVoz.textContent = '🔊 Ler em Voz Alta';
+        finalizarLeitura();
         return;
       }
 
@@ -92,18 +96,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const mensagem = new SpeechSynthesisUtterance(textoParaLer);
         mensagem.lang = 'pt-BR';
 
-        mensagem.onstart = function() {
-          btnLerVoz.textContent = '⏹️ Parar Leitura';
-        };
+        // Definir lendo como true quando a leitura começar
+        lendo = true;
+        btnLerVoz.textContent = '⏹️ Parar Leitura';
 
-        mensagem.onend = function() {
-          btnLerVoz.textContent = '🔊 Ler em Voz Alta';
-        };
+        // Adicionar o evento onend para chamar a função finalizarLeitura
+        mensagem.onend = finalizarLeitura;
+        mensagem.onerror = finalizarLeitura;
 
-        mensagem.onerror = function() {
-          btnLerVoz.textContent = '🔊 Ler em Voz Alta';
-        };
-
+        // Chamar speechSynthesis.speak() passando a instância da fala
         window.speechSynthesis.speak(mensagem);
       } else {
         alert('Seu navegador não suporta a função de leitura em voz alta.');
