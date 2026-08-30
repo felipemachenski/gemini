@@ -285,6 +285,7 @@ p, li {
   display: inline-block;
 }
 
+/* OVERLAY DO MODAL COM DESFOQUE (BLUR) */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -292,12 +293,15 @@ p, li {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 2000;
+  transition: all 0.3s ease;
 }
 
 .modal-overlay.ativo {
   display: block;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .Caixa-Direitos {
