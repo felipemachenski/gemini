@@ -30,27 +30,30 @@ document.addEventListener('DOMContentLoaded', function() {
   // CÓDIGO DE CONTROLE DE FONTE (ACESSIBILIDADE)
   // ==========================================
 
-  // Definir variáveis para o tamanho da fonte
-  let tamanhoFonteAtual = 1; // 1rem
+  // Step 3: Definir variáveis para o tamanho da fonte
+  let tamanhoFonteAtual = 1; // 1rem como valor inicial
   const valorAdicionado = 0.1;
   const valorSubtraido = 0.1;
 
-  // Obter elementos HTML no JavaScript usando document.getElementById
+  // Step 5: Obter elementos HTML no JavaScript usando document.getElementById
   const botaoAumentar = document.getElementById('aumentar-fonte');
   const botaoDiminuir = document.getElementById('diminuir-fonte');
 
-  // Implementar as funções de ajuste de fonte
+  // Step 6: Implementar as funções aumentaFonte() e diminuiFonte()
   function aumentaFonte() {
     tamanhoFonteAtual += valorAdicionado;
     document.documentElement.style.fontSize = tamanhoFonteAtual + 'rem';
   }
 
   function diminuiFonte() {
-    tamanhoFonteAtual -= valorSubtraido;
-    document.documentElement.style.fontSize = tamanhoFonteAtual + 'rem';
+    // Evita que a fonte fique infinitamente pequena
+    if (tamanhoFonteAtual > 0.6) {
+      tamanhoFonteAtual -= valorSubtraido;
+      document.documentElement.style.fontSize = tamanhoFonteAtual + 'rem';
+    }
   }
 
-  // Adicionar ouvintes de evento (event listeners)
+  // Step 7: Adicionar ouvintes de evento (event listeners)
   if (botaoAumentar) {
     botaoAumentar.addEventListener('click', aumentaFonte);
   }
