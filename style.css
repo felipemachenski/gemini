@@ -66,21 +66,24 @@ body {
 .grupo-acessibilidade {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .botao-acessibilidade {
   background-color: #ffffff;
   color: #000000;
   border: 2px solid #ffffff;
-  padding: 10px 18px;
-  font-size: 1.1rem;
+  padding: 8px 14px;
+  font-size: 1rem;
   font-weight: bold;
   border-radius: 8px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   user-select: none;
+  font-family: inherit;
+  transition: background-color 0.2s, outline 0.2s;
 }
 
 .botao-acessibilidade:hover, 
@@ -349,7 +352,6 @@ ul, ol {
   animation: fadeIn 0.25s ease-out;
 }
 
-/* CLASSE ATIVADA VIA JAVASCRIPT */
 .modal-overlay.ativo {
   display: block;
 }
@@ -414,41 +416,6 @@ ul, ol {
   to { opacity: 1; }
 }
 
-/* ACESSIBILIDADE VIA CHECKBOXES */
-#alternar-fonte:checked ~ * {
-  --tamanho-fonte-base: 19px;
-}
-
-/* MODO ALTO CONTRASTE */
-#alternar-contraste:checked ~ * {
-  --cor-fundo: #000000;
-  --cor-cartao: #121212;
-  --cor-texto: #ffffff;
-  --cor-primaria: #ffff00;
-  --cor-segura: #00ff66;
-  --cor-segura-fundo: #002b11;
-  --cor-alerta: #ff6666;
-  --cor-alerta-fundo: #330000;
-  --cor-borda: #ffffff;
-  --cor-fundo-destaque: #1a1a00;
-}
-
-#alternar-contraste:checked ~ main h3,
-#alternar-contraste:checked ~ main .caso-fraude,
-#alternar-contraste:checked ~ .modal-overlay .caso-fraude {
-  color: #ffffff;
-  background-color: #1a1a1a;
-}
-
-#alternar-contraste:checked ~ main .botao-ajuda-destaque,
-#alternar-contraste:checked ~ main .botao-ligar,
-#alternar-contraste:checked ~ main .botao-navegacao,
-#alternar-contraste:checked ~ .modal-overlay .botao-ligar,
-#alternar-contraste:checked ~ .modal-overlay .botao-fechar-modal {
-  color: #000000;
-  font-weight: 900;
-}
-
 /* RODAPÉ */
 footer {
   text-align: center;
@@ -456,4 +423,47 @@ footer {
   margin-top: 30px;
   font-size: 1.1rem;
   border-top: 2px solid var(--cor-borda);
+}
+
+/* AJUSTES DE RESPONSIVIDADE (DISPOSITIVOS MÓVEIS / CELULARES) */
+@media (max-width: 600px) {
+  .barra-acessibilidade {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 12px;
+  }
+
+  .grupo-acessibilidade {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .botao-acessibilidade {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+
+  .botao-navegacao {
+    flex: 1 1 100%;
+    padding: 10px 14px;
+    font-size: 1.1rem;
+  }
+
+  .titulo-destaque {
+    font-size: 1.8rem;
+  }
+
+  .subtitulo-destaque {
+    font-size: 1.1rem;
+  }
+
+  .botao-ajuda-destaque {
+    width: 100%;
+    font-size: 1.3rem;
+    padding: 14px 20px;
+  }
+
+  .bloco-secao {
+    padding: 18px;
+  }
 }
