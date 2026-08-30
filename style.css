@@ -10,7 +10,6 @@
   --cor-borda: #cccccc;
   --contorno-foco: 4px solid #ffbf00;
   --cor-fundo-destaque: #e3f2fd;
-  --tamanho-fonte-base: 16px;
 }
 
 * {
@@ -20,7 +19,7 @@
 }
 
 html {
-  font-size: var(--tamanho-fonte-base);
+  font-size: 100%;
 }
 
 body {
