@@ -57,12 +57,11 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // ==========================================
-  // CÓDIGO DE LEITURA EM VOZ ALTA
+  // CÓDIGO DE LEITURA EM VOZ ALTA (COM PAUSA)
   // ==========================================
   const btnLerVoz = document.getElementById('btn-ler-voz');
   let lendo = false;
 
-  // Função para finalizar leitura que simplesmente atualiza a variável lendo para false
   function finalizarLeitura() {
     lendo = false;
     if (btnLerVoz) {
@@ -76,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    // Se a leitura já estiver ativa (lendo == true), controla pausa e retomada
+    // Se já estiver lendo, controla o PAUSAR e RETOMAR
     if (lendo) {
       if (window.speechSynthesis.paused) {
         window.speechSynthesis.resume();
