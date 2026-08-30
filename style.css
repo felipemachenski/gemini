@@ -33,7 +33,7 @@ body {
   padding-bottom: 40px;
 }
 
-/* OCULTAR ELEMENTOS DE CONTROLE (CHECKBOXES E RADIOS SILENCIOSOS) */
+/* OCULTAR ELEMENTOS DE CONTROLE */
 .alternador-estado {
   position: absolute;
   opacity: 0;
@@ -96,7 +96,7 @@ main {
   padding: 0 15px;
 }
 
-/* BARRA DE MENU SUPERIOR (SEÇÕES) */
+/* BARRA DE MENU SUPERIOR */
 .menu-navegacao {
   display: flex;
   flex-wrap: wrap;
@@ -119,6 +119,7 @@ main {
   transition: all 0.2s ease;
   display: block;
   user-select: none;
+  font-family: inherit;
 }
 
 .botao-navegacao:hover {
@@ -142,7 +143,7 @@ main {
   margin-bottom: 30px;
 }
 
-/* LÓGICA DE SELEÇÃO DAS ABAS (CSS PURO) */
+/* LÓGICA DE SELEÇÃO DAS ABAS */
 #sec-inicio:checked ~ main #bloco-inicio,
 #sec-conselhos:checked ~ main #bloco-conselhos,
 #sec-direitos:checked ~ main #bloco-direitos,
@@ -153,8 +154,7 @@ main {
 #sec-inicio:checked ~ main .menu-navegacao label[for="sec-inicio"],
 #sec-conselhos:checked ~ main .menu-navegacao label[for="sec-conselhos"],
 #sec-direitos:checked ~ main .menu-navegacao label[for="sec-direitos"],
-#sec-fraudes:checked ~ main .menu-navegacao label[for="sec-fraudes"],
-#sec-ajuda-trigger:checked ~ main .menu-navegacao label[for="sec-ajuda-trigger"] {
+#sec-fraudes:checked ~ main .menu-navegacao label[for="sec-fraudes"] {
   background-color: var(--cor-primaria);
   color: #ffffff;
   border-color: var(--cor-primaria);
@@ -199,6 +199,7 @@ main {
   box-shadow: 0 6px 15px rgba(198, 40, 40, 0.4);
   transition: transform 0.2s, background-color 0.2s;
   user-select: none;
+  font-family: inherit;
 }
 
 .botao-ajuda-destaque:hover, 
@@ -348,6 +349,11 @@ ul, ol {
   animation: fadeIn 0.25s ease-out;
 }
 
+/* CLASSE ATIVADA VIA JAVASCRIPT */
+.modal-overlay.ativo {
+  display: block;
+}
+
 .Caixa-Direitos {
   position: fixed;
   top: 50%;
@@ -394,17 +400,13 @@ ul, ol {
   cursor: pointer;
   user-select: none;
   display: inline-block;
+  font-family: inherit;
 }
 
 .botao-fechar-modal:hover, 
 .botao-fechar-modal:focus {
   background-color: #000000;
   outline: var(--contorno-foco);
-}
-
-/* LÓGICA DE EXIBIÇÃO DO MODAL VIA CHECKBOX */
-#sec-ajuda-trigger:checked ~ .modal-overlay {
-  display: block;
 }
 
 @keyframes fadeIn {
