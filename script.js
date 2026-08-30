@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // ==========================================
-  // CÓDIGO DE LEITURA EM VOZ ALTA (COM PAUSA)
+  // CÓDIGO DE LEITURA EM VOZ ALTA (COM PAUSA/RETOMADA)
   // ==========================================
   const btnLerVoz = document.getElementById('btn-ler-voz');
   let lendo = false;
